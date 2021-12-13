@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let caicai = {
+            age: 18
+        }
+        Object.defineProperty(caicai, 'sex', {
+            value: 'famale'//但是默认是不可枚举的,for in打印打印不出来
+        })
+        console.log(caicai);//该对象里sex属性的颜色比age属性浅
+        for (k in caicai) {
+            console.log(k);//输出age
+            console.log(caicai[k]);//输出18
+        }
+        //如果在value下面加上enumerable:true的话,就可以枚举
+    </script>
+</body>
+
+</html>

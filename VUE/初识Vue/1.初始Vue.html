@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备一个容器 root容器里的内容成为vue模板，让vue知道内容往哪里放-->
+    <div id="root">
+        <h1>hello,{{name}}</h1>
+    </div>
+    <script>
+        Vue.config.productionTip = false//阻止Vue在启动时提示
+        const x = new Vue({             //创建vue对象，传一个对象类型的参数
+            el: '#root',                //el指定vue实例为哪个容器服务，使用id选择器
+            data: {                     //data中用于存储数据，数据供el指定的容器去使用
+                name: '菜菜'
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
