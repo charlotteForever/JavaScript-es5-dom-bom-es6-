@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //输入是截止时间，返回倒计时的字符串
+        function countDown(time) {
+            var currTime = +new Date();
+            var inputTime = +new Date(time);
+            var times = (inputTime - currTime) / 1000;//倒计时的秒数
+            console.log(times);
+            var d = parseInt(times / 24 / 60 / 60);
+            var h = parseInt(times / 60 / 60 % 24);
+            var m = parseInt(times / 60 % 60);
+            var s = parseInt(times % 60);
+            var countdown = d + ':' + h + ':' + m + ':' + s;
+            return countdown;
+        }
+        var time = new Date('2021-11-25 0:0:0');
+        console.log(countDown(time));
+    </script>
+</body>
+
+</html>

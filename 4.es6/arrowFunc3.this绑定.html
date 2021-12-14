@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let PageHander = {
+            id: "1234",
+
+            //不用箭头函数的话，要使用bind绑定
+            init: function () {
+                document.addEventListener("click", (function (event) {
+                    this.doSomething(event.type);//输出：Handling click for 1234
+                }).bind(this), false);
+            },
+
+            //使用箭头函数
+            // init: function () {
+            //     document.addEventListener("click", event => {
+            //         this.doSomething(event.type);//输出：Handling click for 1234
+            //     }, false)
+            // },
+
+            doSomething: function (type) {
+                console.log("Handling " + type + " for " + this.id);
+            }
+        };
+        PageHander.init();
+    </script>
+</body>
+
+</html>

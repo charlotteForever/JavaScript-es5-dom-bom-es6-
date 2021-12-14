@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //[]里的内容是或的关系
+        // a[a-z]b 以a开头,以b结尾，中间只要有a-z中的任意一个就ok
+        reg = /a[a-z]b/;
+        console.log(reg.test('agb'));//结果为true
+
+        //^表示非，[^0-9]表示除了数字以外的东西
+        reg = /[^a-z]/;
+        console.log(reg.test('312'));//结果为true
+
+    </script>
+</body>
+
+</html>
