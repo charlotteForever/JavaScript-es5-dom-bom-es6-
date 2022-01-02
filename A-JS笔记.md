@@ -222,7 +222,37 @@ i：忽略大小写		g全局匹配
 
 ## for in和for of
 
-for in既可以遍历对象，又可以遍历数组
+**for in**(遍历对象)
+
+遍历得到数组的下标/对象的key
+
+问题：会遍历数组所有的可枚举属性，包括原型，如下，会输出name和test
+
+```javascript
+let arr = ['lihua', 'xiaohong', 'xiaoming']
+arr.name = '数组'
+Array.prototype.test = function () {
+}
+for (index in arr) {
+    console.log(index)
+}
+//过滤掉原型对象上的函数和属性
+for (index in arr) {
+    if (arr.hasOwnProperty(index)) {
+        console.log(index + '@')
+    }
+}
+```
+
+**for of**(遍历数组)
+
+遍历得到数组的值，不可以遍历对象
+
+一个数据结构只要部署了`Symbol.iterator` 属性, 就具有 iterator接口, 可以使用 for of循环。
+
+数组 Array Map Set String arguments对象，同样也可以解构赋值，剩余参数
+
+
 
 ## this的指向问题
 
@@ -349,9 +379,31 @@ console.log(hello)//hello fanfan
 
 **标签模板**
 
-可以是一个函数，调用时传入加工后的模板字符串的各部分数据
+可以是一个函数，调用时传入加工后的模板字符串的各部分数据(按照任意自己想要的方式进行加工)，把加工后的值作为返回值返回
 
 ```javascript
+//接受的参数如下
+function passthru(literals, ...substitutions) {
+    // for of可以遍历值
+    // 输出：
+    // --
+    // - items cost $-
+    // - in total-
+    for (k of literals) {
+        console.log('-' + k + '-')
+    }
+    // 输出：
+    // -10-
+    // -15-
+    for (k of substitutions) {
+        console.log('-' + k + '-')
+    }
+    // let result = ''
+    // for (let i = 0; i <)
+}
+count = 10
+let price = 15
+let str1 = passthru`${count} items cost $${price} in total`
 ```
 
 主要是code，敲完一章之后，在md上总结，复习时上传csdn
