@@ -317,3 +317,5 @@ hashiqi.bark();
 ### 创建一个对象的过程
 
 <img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211201221232166.png" alt="image-20211201221232166" style="zoom:20%;" />
+
+## set和map
