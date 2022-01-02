@@ -319,3 +319,43 @@ hashiqi.bark();
 <img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211201221232166.png" alt="image-20211201221232166" style="zoom:20%;" />
 
 ## set和map
+
+## 模板字符串
+
+**基本语法**
+
+模板字符串中所有空白符都属于字符串的一部分
+
+```javascript
+let str3 = `hello
+caicai`
+console.log(str3)
+console.log(str3.length)
+console.log('@' + str3[5] + '@')//输出一个换行
+```
+
+**字符串占位符**
+
+```javascript
+let nam = 'caicai'
+let hello = `hello ${nam}`
+console.log(hello)//hello caicai
+
+nam = 'fanfan'
+console.log(hello)//hello caicai
+hello = `hello ${nam}`
+console.log(hello)//hello fanfan
+```
+
+**标签模板**
+
+可以是一个函数，调用时传入加工后的模板字符串的各部分数据
+
+```javascript
+```
+
+主要是code，敲完一章之后，在md上总结，复习时上传csdn
+
+## name和value保留字
+
+命名时尽量不要使用name和value给变量命名
