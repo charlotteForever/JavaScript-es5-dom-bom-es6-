@@ -292,7 +292,7 @@ this与return
 let Famale = function () {
 
 }
-Famale.prototype.sex = 'girl';
+Famale.prototype.sex = 'girl';//在原型对象里添加一个属性
 let caicai = new Famale();
 console.log(caicai.sex);//输出girl
 ```
@@ -320,6 +320,10 @@ console.log(Famale.prototype.constructor === Famale);
 ```
 
 图：
+
+`Person.prototype`叫做显式原型属性 `person.__proto__`叫做隐式原型属性
+
+上面的两个属性都指向同一个原型对象
 
 <img src="https://upload-images.jianshu.io/upload_images/1490251-0cac772635e8a128.png" alt="https://upload-images.jianshu.io/upload_images/1490251-0cac772635e8a128.png" style="zoom:560%;" />
 
@@ -411,3 +415,77 @@ let str1 = passthru`${count} items cost $${price} in total`
 ## name和value保留字
 
 命名时尽量不要使用name和value给变量命名
+
+## ES6模块化
+
+==分别暴露==
+
+```javascript
+export func1(){
+	console.log('haha')
+}
+export func2(){
+	console.log('xixi')
+}
+//导入时
+import {func1,func2} from '文件所在路径'
+```
+
+==统一暴露==
+
+```javascript
+function func1(){
+    console.log('haha')
+}
+function func2(){
+	console.log('xixi')
+}
+export {func1,func2}
+
+//导入时
+import {func1,func2} from '文件所在路径'
+```
+
+==默认暴露==
+
+一个文件里只能有一个默认暴露
+
+```javascript
+export default{ 
+func2(){
+	console.log('xixi')
+}
+}
+
+import myFuncs from '文件所在路径'
+```
+
+### CommonJS模块化
+
+```javascript
+//a.js
+function func1(){
+    console.log('haha')
+}
+function func2(){
+    console.log('xixi')
+}
+module.exports={
+    func1,func2
+}
+
+//b.js引入模块
+let {func1,func2}=require('./a.js')
+```
+
+### ES6模块和CommonJS模块的异同
+
+==CommonJS==
+
+1. 一个文件就是一个模块，模块内的变量私有对外不可见
+
+2. 需要导出的变量可以以exports对象上的属性进行导出
+
+3. 如果导出基本数据类型，属于复制，对另一个模块值的修改不会影响原模块
+
+   如果导出复杂数据类型，属于浅拷贝，对另一个模块的修改会影响原模块
