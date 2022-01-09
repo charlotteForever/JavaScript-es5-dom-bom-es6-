@@ -482,10 +482,97 @@ let {func1,func2}=require('./a.js')
 
 ==CommonJS==
 
-1. 一个文件就是一个模块，模块内的变量私有对外不可见
+1. 一个文件就是一个模块，
 
-2. 需要导出的变量可以以exports对象上的属性进行导出
-
-3. 如果导出基本数据类型，属于复制，对另一个模块值的修改不会影响原模块
+2. 如果导出基本数据类型，属于复制，对另一个模块值的修改不会影响原模块，原模块的修改也不会影响引用模块
 
    如果导出复杂数据类型，属于浅拷贝，对另一个模块的修改会影响原模块
+
+3. CommonJS是加载时执行：遇到`require`的时候，就会全部执行，生成一个对象存在内存里，然后从这个对象的属性上取需要的值
+
+==ES6==
+
+1. 导入的值只是原模块的`动态只读引用`
+2. 对于只读：不允许修改引入的模块的值
+
+3. 对于动态：原始模块发生变化，import加载的值也会变化
+4. ES6模块是编译时输出接口：遇到`import`时，输出一个动态只读引用，等到真的要用这个值的时候（运行时），再通过这个引用到模块中取值。
+
+
+
+共同点：
+
+1. CommonJS和ES6 Module都可以对引⼊的对象进⾏赋值，即对对象内部属性的值进行改变。
+2. 遇到多次导入，只执行一次
+
+### 循环加载
+
+两者循环加载的处理机制一样：遇到循环加载时，输出已经执行的部分，没有执行的部分不予输出
+
+但是因为前者是运行时加载，后者是编译时加载，所以也有一些不同
+
+==CommonJS循环加载==
+
+```javascript
+//a.js
+console.log('a starting');
+exports.done = false;
+const b = require('./b.js');
+console.log('in a, b.done = %j', b.done);
+exports.done = true;
+console.log('a done');
+
+// b.js
+console.log('b starting');
+exports.done = false;
+const a = require('./a.js');
+console.log('in b, a.done = %j', a.done);
+exports.done = true;
+console.log('b done');
+
+//// main.js
+console.log('main starting');
+const a = require('./a.js');
+const b = require('./b.js');
+console.log('in main, a.done = %j, b.done = %j', a.done, b.done);
+```
+
+输出为：
+
+> 次数采用注释的方式说明了执行顺序，需要耐心一点看
+
+```bash
+main starting #加载main.js
+a.starting #在main.js中开始加载a模块
+b.starting #在a.js中开始加载b模块
+# 加载b时遇到再次对a的加载，发现循环加载 输出已经执行的部分
+#此时还处在b模块中
+in b,a.done=false #这是因为上一个代码块的第二行
+b done
+#返回到a模块接着第四行执行
+in a,b.done=true #这是因为上一个代码块的第14行
+a done
+#返回到main
+#遇到对b模块的加载，不再执行(CommonJS机制)
+in main,a.done=true,b.done=true#这是因为6和14行
+```
+
+==ES6循环加载==
+
+> 使用mjs是因为从Node v13.2 版本开始，才默认打开了 ES6 模块支持
+
+```javascript
+// a.mjs
+import { bar } from './b';
+console.log('a.mjs');
+console.log(bar);
+export let foo = 'foo';
+
+// b.mjs
+import { foo } from './a';
+console.log('b.mjs');
+console.log(foo);
+export let bar = 'bar';
+```
+
+这一段会报错，因为
