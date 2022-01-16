@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <h3>promise初体验</h3>
+        <button>点我抽奖</button>
+    </div>
+    <script>
+        // 随机数函数
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
+        }
+        const btn = document.getElementsByTagName('button')[0]
+        btn.addEventListener('click', function () {
+            const p = new Promise((resolve, reject) => {
+                let num = getRandomInt(1, 100)
+                if (num <= 30) {
+                    resolve(num)//并把promise对象的状态设置为成功
+                } else {
+                    reject(num)//把promise对象的状态设置为失败
+                }
+            })
+            p.then((value) => {
+                alert('恭喜你中奖了！,您的中奖数字为' + value)
+            }, (value) => {
+                alert('很遗憾，你没有中奖,您的中奖数字为' + value)
+            })
+        })
+    </script>
+</body>
+
+</html>

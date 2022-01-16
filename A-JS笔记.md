@@ -4,6 +4,8 @@
 
 > 页面渲染的过程
 
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220116142423595.png" alt="image-20220116142423595" style="zoom: 33%;" align='left' />
+
 1. 浏览器根据DNS域名解析得到IP地址
 2. 浏览器与服务器建立一个TCP连接
 3. 浏览器根据IP地址向服务器发起HTTP请求
@@ -75,7 +77,28 @@ es6新增：bigint、symbol
 
 typeof：其中数组、对象、null都会被判断为object，函数是function
 
+```javascript
+console.log(typeof 2);               // number
+console.log(typeof true);            // boolean
+console.log(typeof 'str');           // string    
+console.log(typeof function(){});    // function
+console.log(typeof undefined);       // undefined
+console.log(typeof []);              // object
+console.log(typeof {});              // object
+console.log(typeof null);            // object
+```
+
 instanceof：只能准确判断引用数据类型
+
+```javascript
+console.log(2 instanceof Number);   // false
+console.log(true instanceof Boolean); // false 
+console.log('str' instanceof String);  // false  
+
+console.log([] instanceof Array);  // true
+console.log(function(){} instanceof Function);// true
+console.log({} instanceof Object);  // true
+```
 
 `instanceof` 运算符可以用来测试一个对象在其原型链中是否存在一个构造函数的 `prototype` 属性。
 
@@ -94,45 +117,7 @@ NaN 指“不是一个数字”（not a number），结果是number，是唯一�
 
 
 
-## es6新特性
 
-### let和const
-
-和var的区别
-
-<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211201210935507.png" alt="image-20211201210935507" style="zoom:50%;" />
-
-### 默认参数
-
-> es5的时候：
-
-非严格模式：arguments随传入参数的改变而改变
-
-严格模式：参数改变不影响arguments的值
-
-> es6
-
-使用默认参数，不管是严格模式还是非严格模式，参数改变都不……
-
-并且如果有两个参数，一个参数有默认参数，则arguments[1]的值是undefined
-
-### 解构赋值
-
-### 剩余参数
-
-### 箭头函数
-
-1. 没有arguments
-2. 没有this绑定
-3. prototype属性，不可以作为构造函数创建对象
-
-### promise异步编程
-
-#### 生命周期
-
-<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211212184229999.png" alt="image-20211212184229999" style="zoom:33%;" />
-
-不能通过变成手段检测promise生命状态，只有当其状态改变时，通过then确定下一步做什么。
 
 ## 临时死区
 
@@ -214,11 +199,6 @@ i：忽略大小写		g全局匹配
    console.log(res4);//[ '1', '2', '3', '4', '5', '6' ]
    
    ```
-
-
-## Node.js
-
-就是运行在服务端的 JavaScript。Node.js 是一个基于 [Chrome V8](https://developers.google.com/v8/) 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 [npm](https://www.npmjs.com/)，是全球最大的开源库生态系统。
 
 ## for in和for of
 
@@ -351,8 +331,6 @@ hashiqi.bark();
 ### 创建一个对象的过程
 
 <img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211201221232166.png" alt="image-20211201221232166" style="zoom:20%;" />
-
-## set和map
 
 ## 模板字符串
 
@@ -559,20 +537,62 @@ in main,a.done=true,b.done=true#这是因为6和14行
 
 ==ES6循环加载==
 
-> 使用mjs是因为从Node v13.2 版本开始，才默认打开了 ES6 模块支持
+## es6新特性
 
-```javascript
-// a.mjs
-import { bar } from './b';
-console.log('a.mjs');
-console.log(bar);
-export let foo = 'foo';
+## let和const
 
-// b.mjs
-import { foo } from './a';
-console.log('b.mjs');
-console.log(foo);
-export let bar = 'bar';
-```
+和var的区别
 
-这一段会报错，因为
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211201210935507.png" alt="image-20211201210935507" style="zoom:50%;" />
+
+## 默认参数
+
+> es5的时候：
+
+非严格模式：arguments随传入参数的改变而改变
+
+严格模式：参数改变不影响arguments的值
+
+> es6
+
+使用默认参数，不管是严格模式还是非严格模式，参数改变都不……
+
+并且如果有两个参数，一个参数有默认参数，则arguments[1]的值是undefined
+
+## 解构赋值
+
+## 剩余参数
+
+在函数声明的形参位置
+
+res参数获取到的是数组，可以使用数组的api
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220116203133539.png" alt="image-20220116203133539" style="zoom:50%;" />
+
+## 扩展运算符
+
+放在函数调用的实参处
+
+能把数组变为逗号分隔的参数序列
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220116203406892.png" alt="image-20220116203406892" style="zoom:50%;" />
+
+==应用==
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220116203838850.png" alt="image-20220116203838850" style="zoom:50%;" />
+
+## 箭头函数
+
+1. 没有arguments
+2. 没有this绑定
+3. prototype属性，不可以作为构造函数创建对象
+
+## promise异步编程
+
+#### 生命周期
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211212184229999.png" alt="image-20211212184229999" style="zoom:33%;" />
+
+不能通过变成手段检测promise生命状态，只有当其状态改变时，通过then确定下一步做什么。
+
+promise支持链式回调，可以解决回调地狱（不便于阅读和错误处理）的问题
