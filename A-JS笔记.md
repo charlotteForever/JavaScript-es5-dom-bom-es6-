@@ -596,3 +596,85 @@ res参数获取到的是数组，可以使用数组的api
 不能通过变成手段检测promise生命状态，只有当其状态改变时，通过then确定下一步做什么。
 
 promise支持链式回调，可以解决回调地狱（不便于阅读和错误处理）的问题
+
+
+
+
+
+## 月影JS
+
+### 各司其职
+
+### 组件封装
+
+在组件中，将插件独立出来
+
+耦合和解耦
+
+### 节流和防抖函数
+
+节流（Throttle）：用户随便动鼠标，如果动一下就记录，会给后台传送很多数据；如果没每100ms记录一次
+
+```javascript
+function throttle(fn, time = 500){
+  let timer;
+  return function(...args){
+    if(timer == null){
+      fn.apply(this,  args);
+      timer = setTimeout(() => {
+        timer = null;
+      }, time)
+    }
+  }
+}
+
+btn.onclick = throttle(function(e){
+  circle.innerHTML = parseInt(circle.innerHTML) + 1;
+  circle.className = 'fade';
+  setTimeout(() => circle.className = '', 250);
+});
+```
+
+
+
+防抖（Debour：
+
+```javascript
+var i = 0;
+setInterval(function(){
+  bird.className = "sprite " + 'bird' + ((i++) % 3);
+}, 1000/10);
+
+function debounce(fn, dur){
+  dur = dur || 100;
+  var timer;
+  return function(){
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
+    }, dur);
+  }
+}
+
+document.addEventListener('mousemove', debounce(function(evt){
+  var x = evt.clientX,
+      y = evt.clientY,
+      x0 = bird.offsetLeft,
+      y0 = bird.offsetTop;
+  
+  console.log(x, y);
+  
+  var a1 = new Animator(1000, function(ep){
+    bird.style.top = y0 + ep * (y - y0) + 'px';
+    bird.style.left = x0 + ep * (x - x0) + 'px';
+  }, p => p * p);
+  
+  a1.animate();
+}, 100));
+```
+
+多次调用函数，顺序不同最终的结果不同，就是非纯函数
+
+操作dom的是非纯函数
+
+iterative是纯函数
