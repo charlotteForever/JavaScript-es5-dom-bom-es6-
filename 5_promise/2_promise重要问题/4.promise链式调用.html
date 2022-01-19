@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // p的状态为fulfilled，result为OK
+        const p = new Promise((resolve, reject) => {
+            resolve('OK')
+        })
+        // then接收上一个promise的result作为参数value，并返回一个promise
+        // promise的状态为成功，没有指定promise的result(undefined)
+        let p1 = p.then(value => {
+            console.log(value)
+        }).then(value => {
+            // 所以第二个then的接受的value为underfined
+            console.log(value)
+        })
+
+    </script>
+</body>
+
+</html>

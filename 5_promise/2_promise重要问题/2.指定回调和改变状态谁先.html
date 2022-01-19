@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 一般情况下是先 -->
+    <script>
+        // 如果执行器函数是异步的，那先指定回调，再改变promise状态
+        const p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('OK')
+            }, 2000)
+        })
+        let p1 = p.then(value => {
+            console.log(value)//value的值为OK
+        })
+        // p1的结果为undefined
+        console.log(p1)
+    </script>
+</body>
+
+</html>

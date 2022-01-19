@@ -589,92 +589,110 @@ res参数获取到的是数组，可以使用数组的api
 
 ## promise异步编程
 
-#### 生命周期
+### promise状态
+
+> 在实例对象中，用属性`PromiseState`表示
 
 <img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20211212184229999.png" alt="image-20211212184229999" style="zoom:33%;" />
 
 不能通过变成手段检测promise生命状态，只有当其状态改变时，通过then确定下一步做什么。
 
-promise支持链式回调，可以解决回调地狱（不便于阅读和错误处理）的问题
+promise支持**链式回调**（then也返回promise），可以解决回调地狱（不便于阅读和错误处理）的问题
 
+### promise的结果
 
+> 在实例对象中，用属性`PromiseResult`表示
 
-
-
-## 月影JS
-
-### 各司其职
-
-### 组件封装
-
-在组件中，将插件独立出来
-
-耦合和解耦
-
-### 节流和防抖函数
-
-节流（Throttle）：用户随便动鼠标，如果动一下就记录，会给后台传送很多数据；如果没每100ms记录一次
+保存着异步任务成功或者失败的结果
 
 ```javascript
-function throttle(fn, time = 500){
-  let timer;
-  return function(...args){
-    if(timer == null){
-      fn.apply(this,  args);
-      timer = setTimeout(() => {
-        timer = null;
-      }, time)
-    }
-  }
-}
-
-btn.onclick = throttle(function(e){
-  circle.innerHTML = parseInt(circle.innerHTML) + 1;
-  circle.className = 'fade';
-  setTimeout(() => circle.className = '', 250);
-});
+//OK就是该promise对象的结果
+const p=new Promise.resolve('Ok')
 ```
 
+### promise流程
 
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220117214750601.png" alt="image-20220117214750601" style="zoom:50%;" />
 
-防抖（Debour：
+### promise中的API
+
+1. 构造函数`Promise(excutor){}`
+
+   ```
+   excutor:执行器函数 (resolve,reject)=>{}
+   resolve:promise的状态为成功时调用 value=>{}
+   reject:promise状态为失败时调用的函数 value=>{}
+   excutor会在promise内部立即同步执行，异步任务在执行器里面执行
+   ```
+
+2. `Promise.prototype.then` 方法: `(onResolved, onRejected) => {}`
+
+   ```
+   onResolved 函数: 成功的回调函数 (value) => {}
+   onRejected 函数: 失败的回调函数 (reason) => {}
+   ```
+
+   返回一个新的 promise 对象  
+
+3. `Promise.prototype.catch  `
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220117220721660.png" alt="image-20220117220721660" style="zoom: 50%;" align='left'/>
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220117220758820.png" alt="image-20220117220758820" style="zoom:50%;" />
+
+### promise关键问题
+
+==如何改变promise状态==
+
+1. `resolve(‘ok’)`:pending——>fulfilled
+2. `reject(‘err’)`:pending——>rejected
+3. `throw '出问题了'`:pending——>rejected 
+
+==指定多个成功/失败的回调==
+
+都会执行
+
+==改变状态和指定回调函数，谁先谁后？==
+
+一般情况下都是先指定回调，再改变promise状态。
+
+如何先改变状态再指定回调？
+
+1. 执行器函数中直接调用resolve或者reject（同步任务）
+2. 延迟更长的时间才调用then
+
+回调函数什么时候执行？（什么时候拿到数据）
+
+简单来说，就是状态改变了之后
+
+<img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220119122341562.png" alt="image-20220119122341562" style="zoom: 67%;" align='left' />
+
+==promise.then()返回的promise状态由什么决定==
 
 ```javascript
-var i = 0;
-setInterval(function(){
-  bird.className = "sprite " + 'bird' + ((i++) % 3);
-}, 1000/10);
-
-function debounce(fn, dur){
-  dur = dur || 100;
-  var timer;
-  return function(){
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, arguments);
-    }, dur);
-  }
-}
-
-document.addEventListener('mousemove', debounce(function(evt){
-  var x = evt.clientX,
-      y = evt.clientY,
-      x0 = bird.offsetLeft,
-      y0 = bird.offsetTop;
-  
-  console.log(x, y);
-  
-  var a1 = new Animator(1000, function(ep){
-    bird.style.top = y0 + ep * (y - y0) + 'px';
-    bird.style.left = x0 + ep * (x - x0) + 'px';
-  }, p => p * p);
-  
-  a1.animate();
-}, 100));
+ let res = p.then(value => {
+ 	// 1.如果抛出错误，返回的promise状态为rejected，结果为'出错了'
+    throw '出错了！'
+ 	// 2.返回非promise类型的值,得到的promise状态为fulfilled，结果为521
+    return 521
+ 	// 3.返回promise对象，得到的promise状态由返回的promise状态决定，结		   果为success
+ 	return new Promise((resolve, reject) => {
+     	resolve('success')
+ 	})
+	// 4.没有返回值，得到的promise状态为fulfilled，结果为undefined
+    console.log('success')
+ })
+ 
 ```
 
-多次调用函数，顺序不同最终的结果不同，就是非纯函数
+==串联多个任务==
 
-操作dom的是非纯函数
+链式回调：一个promise的then方法也返回一个promise对象，如此链式调用，可以解决回调地狱的问题
 
-iterative是纯函数
+==异常穿透==
+
+在链式回调中，不需要再回调中指定失败的回调，只需要在最后指定失败的回调即可。
+
+==中断promise链==
+
+返回一个pending状态的promise

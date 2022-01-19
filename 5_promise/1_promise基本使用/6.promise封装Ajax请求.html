@@ -28,6 +28,8 @@
                 }
             })
         }
+        // 函数返回的promise对象的结果就是then处接受的value
+        console.log(sendAjax('https://api.apiopen.top/getJoke'))
         sendAjax('https://api.apiopen.top/getJoke').then(value => {
             console.log(value)
         }, reason => {
