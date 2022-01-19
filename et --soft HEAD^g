@@ -1,0 +1,20 @@
+[33m542e0d8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to HEAD^
+[33m9c939c0[m HEAD@{1}: commit: 手写promise_throw改变promise状态&then回调&promise状态只能修改一次
+[33m542e0d8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{2}: commit: 手写promise_实现resolve和reject
+[33m82c3274[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{3}: commit: 手写promise结构搭建
+[33m9742452[m HEAD@{4}: commit: promise重要问题
+[33m6ba4fc8[m HEAD@{5}: commit: promise封装相关
+[33md5e85df[m HEAD@{6}: commit: promise封装fs读取文件
+[33m09ec2c3[m HEAD@{7}: commit: promise封装ajax请求
+[33m54dbe3d[m HEAD@{8}: commit: promise实际操作
+[33mf814944[m HEAD@{9}: commit: promise基础
+[33m1a5efc6[m HEAD@{10}: commit: update
+[33medddfcb[m HEAD@{11}: commit: sth abount commonJS module
+[33m6d9840f[m HEAD@{12}: commit: update
+[33m3eca5e4[m HEAD@{13}: commit: update
+[33m02ca3a3[m HEAD@{14}: commit: update
+[33mfbbe1ee[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{15}: checkout: moving from master to main
+[33mfbbe1ee[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{16}: pull --rebase origin main (finish): returning to refs/heads/master
+[33mfbbe1ee[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{17}: pull --rebase origin main (pick): update
+[33m099fbad[m HEAD@{18}: pull --rebase origin main (start): checkout 099fbad98b6d64c3ae4d71ac07f43143a365c9ba
+[33mca7f0b4[m HEAD@{19}: commit (initial): update

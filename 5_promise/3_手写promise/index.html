@@ -12,7 +12,8 @@
 <body>
     <script>
         const p = new Promise((resolve, reject) => {
-            resolve('OK')
+            // resolve('OK')
+            throw 'err'
         })
         p.then(value => {
 
