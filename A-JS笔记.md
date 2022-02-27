@@ -73,6 +73,12 @@ es6新增：bigint、symbol
 2. 通过 call 调用数组的 slice 方法来实现转换
 3. ...扩展运算符
 
+## 二维数组
+
+ 二维数组的行数：arr.length
+
+ 相应行的列数：arr[0].length //第一行的长度 以上例来算此值为2
+
 ## 检测数据类型
 
 typeof：其中数组、对象、null都会被判断为object，函数是function
@@ -580,6 +586,21 @@ res参数获取到的是数组，可以使用数组的api
 ==应用==
 
 <img src="C:\Users\10153\AppData\Roaming\Typora\typora-user-images\image-20220116203838850.png" alt="image-20220116203838850" style="zoom:50%;" />
+
+对象里的属性拆解开，作为另外一个对象的属性
+
+```js
+let para={
+    sum:'sum',
+    school:'school'
+}
+
+{
+   ...para 
+}
+```
+
+
 
 ## 箭头函数
 
