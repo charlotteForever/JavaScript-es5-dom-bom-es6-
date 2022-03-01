@@ -10,6 +10,7 @@ let hander = {
         return key in obj ? obj[key] : 66
     }, set(obj, key, val) {
         obj[key] = val
+        return true
     }
 }
 let proxyObj = new Proxy(person, hander)
