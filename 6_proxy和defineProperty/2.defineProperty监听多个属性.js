@@ -9,7 +9,7 @@ let person = {
 
 // 实现一个响应式函数
 function defineProperty(obj, key, val) {
-    observer(key)
+    observer(val)
     Object.defineProperty(obj, key, {
         get() {
             console.log(`访问了${key}属性`)
