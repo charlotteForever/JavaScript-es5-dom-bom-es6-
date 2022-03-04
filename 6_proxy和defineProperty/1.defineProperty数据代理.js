@@ -1,24 +1,25 @@
-// 实现简单的数据代理
-// person2的schoo属性，由person1代理
-let person1 = { school: '西电' }
-let person2 = {}
-Object.defineProperty(person2, 'school', {
+let person = {}
+let personName = 'lihua'
+//在person对象上添加属性name,值为personName
+Object.defineProperty(person, 'namep', {
+    //但是默认是不可枚举的(for in打印打印不出来)，可：enumerable: true
+    //默认不可以修改，可：wirtable：true
+    //默认不可以删除，可：configurable：true
     get: function () {
-        // person1的school的值作为person2的school值
-        return person1.school
+        console.log('触发了get方法')
+        return personName
     },
     set: function (val) {
-        // 修改person2的school值时，也就是修改person1的school值
-        console.log(`监听到了person2的school属性的修改,新值为${val}`)
-        person1.school = val
-        // 此处可以进行渲染操作
+        console.log('触发了set方法')
+        personName = val
     }
 })
-// 触发get
-console.log(person2.school)
-// 触发set
-person2.school = '清华'
-console.log(person1.school)
-console.log(person2.school)
-
-
+//当读取person对象的namp属性时，触发get方法
+console.log(person.namep)
+//当修改personName时，重新访问person.namep发现修改成功
+personName = 'liming'
+//检查后发现，修改成功了
+console.log(person.namep)
+// 对person.namep进行修改，触发set方法
+person.namep = 'huahua'
+console.log(person.namep)
