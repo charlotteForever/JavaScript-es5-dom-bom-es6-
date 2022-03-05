@@ -22,8 +22,9 @@
         let count = 0
         const box = document.querySelector('.box')
         function doSomething(e) {
-            console.log(e)//不进行指定的话为undefined
-            console.log(this)//不进行绑定的话指向window
+            // console.log(e)//不进行指定的话为undefined
+            // console.log(this)//不进行绑定的话指向window
+            console.log('33')
             // 对box的innerHTML进行操作
             box.innerHTML = count
             count++
@@ -31,8 +32,10 @@
 
         // 实现debounce函数对doSomething进行包装
         function debounce(func, delay) {
+            console.log('11')//赋值操作只有一次
             let timer;
             return function () {
+                console.log('22')
                 let context = this//这里的this指向box元素
                 let arg = arguments//且这里的第一个arguments是鼠标事件
                 clearTimeout(timer)

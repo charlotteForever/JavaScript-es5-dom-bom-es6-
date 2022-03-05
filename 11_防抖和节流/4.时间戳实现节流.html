@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 300px;
+            widows: 400px;
+            background-color: pink;
+        }
+    </style>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let count = 0
+        // 什么是节流？事件一直触发，但是每隔特定时间才执行事件处理函数
+        const box = document.querySelector('.box')
+        function doSomething(e) {
+            box.innerHTML = count
+            count++
+            console.log(this)
+            console.log(e)
+        }
+        function throttle(func, delay) {
+            let old = 0
+            return function () {
+                let content = this
+                let arg = arguments
+                let now = new Date().valueOf()
+                if (now - old >= delay) {
+                    func.apply(content, arg)
+                    old = now
+                }
+            }
+        }
+
+        box.onmousemove = throttle(doSomething, 1000)
+    </script>
+</body>
+
+</html>
