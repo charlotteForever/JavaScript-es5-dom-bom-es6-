@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 300px;
+            widows: 400px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <!-- 什么是防抖，事件可能一直被触发，但是事件响应函数隔一段时间再执行；如果在这一段时间内 -->
+    <script>
+        let count = 0
+        const box = document.querySelector('.box')
+        function doSomething(e) {
+            console.log(e)//不进行指定的话为undefined
+            console.log(this)//不进行绑定的话指向window
+            // 对box的innerHTML进行操作
+            box.innerHTML = count
+            count++
+        }
+
+        // 实现debounce函数对doSomething进行包装
+        function debounce(func, delay) {
+            let timer;
+            return function () {
+                let context = this//这里的this指向box元素
+                let arg = arguments//且这里的第一个arguments是鼠标事件
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    func.apply(context, arguments)
+                }, delay)
+            }
+        }
+        // mousemove虽然一直触发debunce，但是不会一直执行func函数
+        // 正常来说onmousemove后面的函数都有一个参数e，为当前被触发的事件
+        // 第三个参数为true：表示立即执行
+        box.onmousemove = debounce(doSomething, 100, true)
+
+    </script>
+</body>
+
+</html>
