@@ -30,11 +30,12 @@
                     reject(num)//把promise对象的状态设置为失败
                 }
             })
-            p.then((value) => {
+            console.log(p)
+            console.log(p.then((value) => {
                 alert('恭喜你中奖了！,您的中奖数字为' + value)
             }, (value) => {
                 alert('很遗憾，你没有中奖,您的中奖数字为' + value)
-            })
+            }))
         })
     </script>
 </body>
