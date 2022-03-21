@@ -1,23 +1,18 @@
-var addStrings = function (num1, num2) {
-    // 维护i和j指向两个数组的最后一位
-    // 维护add判断是否要进位
-    let i = num1.length - 1
-    let j = num2.length - 1
-    let add = 0
-    // 存放结果
-    let res = []
-    // 如果最后一位有进位呢？所以要加上判断条件add！=0
-    while (i >= 0 || j >= 0 || add !== 0) {
-        // @ts-ignore
-        let x = i >= 0 ? num1.charAt(i) - '0' : 0
-        // @ts-ignore
-        let y = j >= 0 ? num2.charAt(j) - '0' : 0
-        res.unshift((x + y + add) % 10)
-        add = Math.floor((x + y + add) / 10)
-        i--
-        j--
+var lengthOfLIS = function (nums) {
+    // dp数组的含义是包括当前数在内，可以形成的最长的子串
+    let dp = [1]
+    // 存储满足条件的dp最大值
+    let max
+    for (let i = 1; i < nums.length; i++) {
+        max = 0
+        // 遍历dp数组的前i个，找到小于当前数的数中，dp最大的
+        for (let j = 0; j < i; j++) {
+            if (nums[j] < nums[i] && dp[j] > max) {
+                max = dp[j]
+            }
+        }
+        dp[i] = max + 1
     }
-
-    // console.log(res.join(''))
+    return Math.max(...dp)
 };
-addStrings('123', '12')
+console.log(lengthOfLIS([0, 1, 0, 3, 2, 3]))

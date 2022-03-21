@@ -10,6 +10,7 @@ console.log(Array.from(new Map([['a', 1], ['b', 2]]).values()))
 
 // 对长度为3的数组的每一元素，把其变为一个长度为5的数组，并且赋值为0
 console.log(Array.from(new Array(3), () => new Array(5).fill(0)))
+// [ [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0 ] ]
 // console.log(Array.from(new Array(3), () => new Array(5).fill(0)))
 
 // 配合箭头函数
