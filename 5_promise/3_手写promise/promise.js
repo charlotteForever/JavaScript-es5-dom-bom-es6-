@@ -1,3 +1,4 @@
+// @ts-ignore
 function Promise(excutor) {
     this.promiseState = 'pending'
     this.promiseResult = null
@@ -5,7 +6,7 @@ function Promise(excutor) {
 
     function resolve(data) {
         // promise对象的状态只能修改一次
-        if (self.promiseState !== 'pending') {
+        if (self.promiseState === 'pending') {
             // 修改状态为fulfilled
             self.promiseState = 'fulfilled'
             // 修改result为data
@@ -14,7 +15,7 @@ function Promise(excutor) {
 
     }
     function reject(data) {
-        if (self.promiseState !== 'pending') {
+        if (self.promiseState === 'pending') {
             // 修改状态为rejected
             self.promiseState = 'rejected'
             // 修改result为data
@@ -32,6 +33,7 @@ function Promise(excutor) {
     }
 
 }
+// @ts-ignore
 Promise.prototype.then = function (onResolve, onReject) {
     // 接收一个onResolve和onReject的函数体，判断之后把参数值传入就OK
     if (this.promiseState === 'fulfilled') {
