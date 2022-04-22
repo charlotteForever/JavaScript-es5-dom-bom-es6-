@@ -29,3 +29,35 @@ new Promise(resolve => {
 })
 
 console.log('script end');
+// async function async1() {
+//     console.log('async1 start') // 2
+//     await async2()
+//     //await后面的都作为回调内容- 微任务
+//     console.log('async1 end') //6
+// }
+// async function async2() {
+//     console.log('async2') // 3
+// }
+// console.log('script start') //1
+
+// setTimeout(function () { //宏任务
+//     console.log('setTimeout') //8
+// }, 0)
+
+// async1()
+
+// // 初始化Promise时，传入的函数会立即执行
+// new Promise(function (resolve) {
+//     console.log('promise1')  // 4
+//     resolve()
+// }).then(function () { //微任务
+//     console.log('promise2')  // 7
+// })
+// console.log('script end') //5
+
+// //执行到5，同步代码执行完毕（event loop - call stack被清空）
+// // 执行微任务
+// // （尝试触发DOM渲染）
+// // 触发event loop,执行宏任务
+
+
