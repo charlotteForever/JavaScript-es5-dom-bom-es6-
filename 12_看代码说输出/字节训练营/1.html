@@ -1,0 +1,42 @@
+<!-- <html>
+
+<body>
+    <label id="outer">
+        请点击
+        <input id="inner" />
+    </label>
+</body>
+<script>
+    document.getElementById("outer").addEventListener("click", function () {
+        console.log(" label");
+    });
+    document.getElementById("inner").addEventListener("click", function () {
+        console.log("input");
+    });
+</script>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test">
+        <input type="checkbox" name="abc" id="abc" />
+        <label for="abc">3423432432432432</label>
+    </div>
+    <script>
+        document.getElementById("test").onclick = function (ev) {
+            console.log(ev.target);
+        }
+    </script>
+
+</body>
+
+</html>
